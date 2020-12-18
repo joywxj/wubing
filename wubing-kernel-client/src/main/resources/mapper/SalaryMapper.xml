@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.SalaryMapper" >
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.salary.Salary">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="em_id" property="emId" jdbcType="VARCHAR" />
+		<result column="work_id" property="workId" jdbcType="VARCHAR" />
+		<result column="years" property="years" jdbcType="VARCHAR" />
+		<result column="months" property="months" jdbcType="VARCHAR" />
+		<result column="timesheets" property="timesheets"  jdbcType="DOUBLE" />
+		<result column="day_salary" property="daySalary" jdbcType="VARCHAR" />
+		<result column="month_salary" property="monthSalary" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,em_id,work_id,years,months,timesheets,day_salary,month_salary,create_time,update_time
+	</sql>
+	
+	<select id="selectSalaryByMap"  resultMap="BaseResultMap" parameterType="map">
+		SELECT A.id,a.years,a.months,a.timesheets,a.day_salary,a.month_salary,a.create_time,a.update_time,B.`name` em_id,C.area_name work_id FROM salary A LEFT JOIN employee B ON A.em_id = B.id LEFT JOIN construction C ON A.work_id = C.id
+		<where>
+			<if test="id != null and id != ''">
+				and a.id = #{id}
+			</if>
+			<if test="emId != null and emId != ''">
+				and a.em_id = #{emId}
+			</if>
+			<if test="workId != null and workId != ''">
+				and a.work_id = #{workId}
+			</if>
+			<if test="years != null and years != ''">
+				and a.years = #{years}
+			</if>
+			<if test="months != null and months != ''">
+				and a.months = #{months}
+			</if>
+			<if test="timesheets != null and timesheets != ''">
+				and a.timesheets = #{timesheets}
+			</if>
+			<if test="daySalary != null and daySalary != ''">
+				and a.day_salary = #{daySalary}
+			</if>
+			<if test="monthSalary != null and monthSalary != ''">
+				and a.month_salary = #{monthSalary}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and a.create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and a.update_time = #{updateTime}
+			</if>
+		</where>
+		ORDER BY a.update_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<select id="selectSalary" resultMap="BaseResultMap"  parameterType="com.wxj.domain.entity.salary.Salary" >
+		select <include refid="BaseColumnList" /> from salary
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="emId != null and emId != ''">
+				and em_id = #{emId}
+			</if>
+			<if test="workId != null and workId != ''">
+				and work_id = #{workId}
+			</if>
+			<if test="years != null and years != ''">
+				and years = #{years}
+			</if>
+			<if test="months != null and months != ''">
+				and months = #{months}
+			</if>
+			<if test="timesheets != null and timesheets != ''">
+				and timesheets = #{timesheets}
+			</if>
+			<if test="daySalary != null and daySalary != ''">
+				and day_salary = #{daySalary}
+			</if>
+			<if test="monthSalary != null and monthSalary != ''">
+				and month_salary = #{monthSalary}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+	</select>
+	<insert id="insertSalary"  parameterType="com.wxj.domain.entity.salary.Salary" >
+		insert into salary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="emId != null and emId != ''">
+				em_id,
+			</if>
+			<if test="workId != null and workId != ''">
+				work_id,
+			</if>
+			<if test="years != null and years != ''">
+				years,
+			</if>
+			<if test="months != null and months != ''">
+				months,
+			</if>
+			<if test="timesheets != null and timesheets != ''">
+				timesheets,
+			</if>
+			<if test="daySalary != null and daySalary != ''">
+				day_salary,
+			</if>
+			<if test="monthSalary != null and monthSalary != ''">
+				month_salary,
+			</if>
+				create_time,
+				update_time,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="emId != null and emId != ''">
+				#{emId},
+			</if>
+			<if test="workId != null and workId != ''">
+				#{workId},
+			</if>
+			<if test="years != null and years != ''">
+				#{years},
+			</if>
+			<if test="months != null and months != ''">
+				#{months},
+			</if>
+			<if test="timesheets != null and timesheets != ''">
+				#{timesheets},
+			</if>
+			<if test="daySalary != null and daySalary != ''">
+				#{daySalary},
+			</if>
+			<if test="monthSalary != null and monthSalary != ''">
+				#{monthSalary},
+			</if>
+				SYSDATE(),
+				SYSDATE(),
+		</trim>
+	</insert>
+	<delete id="deleteSalary" parameterType="com.wxj.domain.entity.salary.Salary" >
+		delete from salary
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="emId != null and emId != ''">
+				and em_id = #{emId}
+			</if>
+			<if test="workId != null and workId != ''">
+				and work_id = #{workId}
+			</if>
+			<if test="years != null and years != ''">
+				and years = #{years}
+			</if>
+			<if test="months != null and months != ''">
+				and months = #{months}
+			</if>
+			<if test="timesheets != null and timesheets != ''">
+				and timesheets = #{timesheets}
+			</if>
+			<if test="daySalary != null and daySalary != ''">
+				and day_salary = #{daySalary}
+			</if>
+			<if test="monthSalary != null and monthSalary != ''">
+				and month_salary = #{monthSalary}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+	</delete>
+</mapper>

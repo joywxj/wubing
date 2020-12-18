@@ -1,0 +1,4 @@
+# Project exclude paths
+/wubing-kernel-client/target/
+/wubing-server/target/
+/wubing-web-client/target/

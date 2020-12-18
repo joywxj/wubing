@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.DictionaryMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.dictionary.Dictionary">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+		<result column="param_code" property="paramCode" jdbcType="VARCHAR" />
+		<result column="show_value" property="showValue" jdbcType="VARCHAR" />
+		<result column="param_value" property="paramValue" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,type_code,param_code,show_value,param_value,
+	</sql>
+	<!-- 查询字典表信息 -->
+	<select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT * FROM dictionary
+		<where>
+			1 = 1
+			<if test="id != null and id != ''">
+				AND id = #{id}
+			</if>
+			<if test="typeCode != null and typeCode != ''">
+				AND type_code = #{typeCode}
+			</if>
+			<if test="paramCode != null and paramCode != ''">
+				AND param_code = #{paramCode}
+			</if>
+			<if test="showValue != null and showValue != ''">
+				AND show_value = #{showValue}
+			</if>
+			<if test="paramValue != null and paramValue != ''">
+				AND param_value = #{paramValue}
+			</if>
+		</where>
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 插入字典表信息 -->
+	<insert id="insert" parameterType="com.wxj.domain.entity.dictionary.Dictionary">
+		INSERT INTO dictionary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="typeCode != null and typeCode != ''">
+				type_code,
+			</if>
+			<if test="paramCode != null and paramCode != ''">
+				param_code,
+			</if>
+			<if test="showValue != null and showValue != ''">
+				show_value,
+			</if>
+			<if test="paramValue != null and paramValue != ''">
+				param_value,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="typeCode != null and typeCode != ''">
+				#{typeCode},
+			</if>
+			<if test="paramCode != null and paramCode != ''">
+				#{paramCode},
+			</if>
+			<if test="showValue != null and showValue != ''">
+				#{showValue},
+			</if>
+			<if test="paramValue != null and paramValue != ''">
+				#{paramValue},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改字典表信息 -->
+	<update id="update" parameterType="com.wxj.domain.entity.dictionary.Dictionary">
+		update  dictionary
+		<trim prefix="set" suffixOverrides=",">
+
+
+			<if test="id != null and id != ''">
+				id = #{id},
+			</if>
+			<if test="typeCode != null and typeCode != ''">
+				type_code = #{typeCode},
+			</if>
+			<if test="paramCode != null and paramCode != ''">
+				param_code = #{paramCode},
+			</if>
+			<if test="showValue != null and showValue != ''">
+				show_value = #{showValue},
+			</if>
+			<if test="paramValue != null and paramValue != ''">
+				param_value = #{paramValue},
+			</if>
+		</trim>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	<!-- 删除字典表信息 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM  dictionary
+		<where>
+			id = #{id}
+		</where>
+	</delete>
+	<!-- 查询单个字典表信息 -->
+	<select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT * FROM dictionary
+		<where>
+			id = #{id}
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.TimesheetsMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.timesheet.Timesheets">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="cst_name" property="cstName" jdbcType="VARCHAR" />
+		<result column="cst_id" property="cstId" jdbcType="BIGINT" />
+		<result column="em_name" property="emName" jdbcType="VARCHAR" />
+		<result column="em_id" property="emId" jdbcType="BIGINT" />
+		<result column="years" property="years" jdbcType="BIGINT" />
+		<result column="months" property="months" jdbcType="BIGINT" />
+		<result column="day01" property="day01" jdbcType="DOUBLE" />
+		<result column="day02" property="day02" jdbcType="DOUBLE" />
+		<result column="day03" property="day03" jdbcType="DOUBLE" />
+		<result column="day04" property="day04" jdbcType="DOUBLE" />
+		<result column="day05" property="day05" jdbcType="DOUBLE" />
+		<result column="day06" property="day06" jdbcType="DOUBLE" />
+		<result column="day07" property="day07" jdbcType="DOUBLE" />
+		<result column="day08" property="day08" jdbcType="DOUBLE" />
+		<result column="day09" property="day09" jdbcType="DOUBLE" />
+		<result column="day10" property="day10" jdbcType="DOUBLE" />
+		<result column="day11" property="day11" jdbcType="DOUBLE" />
+		<result column="day12" property="day12" jdbcType="DOUBLE" />
+		<result column="day13" property="day13" jdbcType="DOUBLE" />
+		<result column="day14" property="day14" jdbcType="DOUBLE" />
+		<result column="day15" property="day15" jdbcType="DOUBLE" />
+		<result column="day16" property="day16" jdbcType="DOUBLE" />
+		<result column="day17" property="day17" jdbcType="DOUBLE" />
+		<result column="day18" property="day18" jdbcType="DOUBLE" />
+		<result column="day19" property="day19" jdbcType="DOUBLE" />
+		<result column="day20" property="day20" jdbcType="DOUBLE" />
+		<result column="day21" property="day21" jdbcType="DOUBLE" />
+		<result column="day22" property="day22" jdbcType="DOUBLE" />
+		<result column="day23" property="day23" jdbcType="DOUBLE" />
+		<result column="day24" property="day24" jdbcType="DOUBLE" />
+		<result column="day25" property="day25" jdbcType="DOUBLE" />
+		<result column="day26" property="day26" jdbcType="DOUBLE" />
+		<result column="day27" property="day27" jdbcType="DOUBLE" />
+		<result column="day28" property="day28" jdbcType="DOUBLE" />
+		<result column="day29" property="day29" jdbcType="DOUBLE" />
+		<result column="day30" property="day30" jdbcType="DOUBLE" />
+		<result column="day31" property="day31" jdbcType="DOUBLE" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+		<result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,cst_name,cst_id,em_name,em_id,years,months,day01,day02,day03,day04,day05,day06,day07,day08,day09,day10,day11,day12,day13,day14,day15,day16,day17,day18,day19,day20,day21,day22,day23,day24,day25,day26,day27,day28,day29,day30,day31,create_user,create_time,modify_time,modify_user
+	</sql>
+	<select id="queryByPage" parameterType="java.util.Map" resultType="com.wxj.domain.vo.timesheet.TimesheetsVO">
+		SELECT
+
+		id,cst_name cstName,cst_id cstId,em_name emName,em_id emId,years,months,
+		day01,day02,day03,day04,day05,day06,day07,day08,day09,day10,day11,day12,day13,day14,day15,day16,day17,day18,day19,day20,day21,day22,day23,day24,day25,day26,day27,day28,day29,day30,day31,		(day01+day02+day03+day04+day05+day06+day07+day08+day09+day10+day11+day12+day13+day14+day15+day16+day17+day18+day19+day20+day21+day22+day23+day24+day25+day26+day27+day28+day29+day30+day31) total,
+		create_user createUser,create_time createTime,modify_time modifyTime,modify_user modifyUser
+
+
+		FROM timesheets
+		<where>
+			1 = 1
+			<if test="id != null and id != ''">
+				AND id = #{id}
+			</if>
+			<if test="cstName != null and cstName != ''">
+				AND cst_name = #{cstName}
+			</if>
+			<if test="cstId != null and cstId != ''">
+				AND cst_id = #{cstId}
+			</if>
+			<if test="emName != null and emName != ''">
+				AND em_name = #{emName}
+			</if>
+			<if test="emId != null and emId != ''">
+				AND em_id = #{emId}
+			</if>
+			<if test="years != null and years != ''">
+				AND years = #{years}
+			</if>
+			<if test="months != null and months != ''">
+				AND months = #{months}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND create_user = #{createUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND create_time = #{createTime}
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				AND modify_time = #{modifyTime}
+			</if>
+			<if test="modifyUser != null and modifyUser != ''">
+				AND modify_user = #{modifyUser}
+			</if>
+		</where>
+		ORDER BY modify_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 查询工时表信息 -->
+	<select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT * FROM timesheets
+		<where>
+			 1 = 1
+			<if test="id != null and id != ''">
+				AND id = #{id}
+			</if>
+			<if test="cstName != null and cstName != ''">
+				AND cst_name = #{cstName}
+			</if>
+			<if test="cstId != null and cstId != ''">
+				AND cst_id = #{cstId}
+			</if>
+			<if test="emName != null and emName != ''">
+				AND em_name = #{emName}
+			</if>
+			<if test="emId != null and emId != ''">
+				AND em_id = #{emId}
+			</if>
+			<if test="years != null and years != ''">
+				AND years = #{years}
+			</if>
+			<if test="months != null and months != ''">
+				AND months = #{months}
+			</if>
+			<if test="day01 != null and day01 != ''">
+				AND day01 = #{day01}
+			</if>
+			<if test="day02 != null and day02 != ''">
+				AND day02 = #{day02}
+			</if>
+			<if test="day03 != null and day03 != ''">
+				AND day03 = #{day03}
+			</if>
+			<if test="day04 != null and day04 != ''">
+				AND day04 = #{day04}
+			</if>
+			<if test="day05 != null and day05 != ''">
+				AND day05 = #{day05}
+			</if>
+			<if test="day06 != null and day06 != ''">
+				AND day06 = #{day06}
+			</if>
+			<if test="day07 != null and day07 != ''">
+				AND day07 = #{day07}
+			</if>
+			<if test="day08 != null and day08 != ''">
+				AND day08 = #{day08}
+			</if>
+			<if test="day09 != null and day09 != ''">
+				AND day09 = #{day09}
+			</if>
+			<if test="day10 != null and day10 != ''">
+				AND day10 = #{day10}
+			</if>
+			<if test="day11 != null and day11 != ''">
+				AND day11 = #{day11}
+			</if>
+			<if test="day12 != null and day12 != ''">
+				AND day12 = #{day12}
+			</if>
+			<if test="day13 != null and day13 != ''">
+				AND day13 = #{day13}
+			</if>
+			<if test="day14 != null and day14 != ''">
+				AND day14 = #{day14}
+			</if>
+			<if test="day15 != null and day15 != ''">
+				AND day15 = #{day15}
+			</if>
+			<if test="day16 != null and day16 != ''">
+				AND day16 = #{day16}
+			</if>
+			<if test="day17 != null and day17 != ''">
+				AND day17 = #{day17}
+			</if>
+			<if test="day18 != null and day18 != ''">
+				AND day18 = #{day18}
+			</if>
+			<if test="day19 != null and day19 != ''">
+				AND day19 = #{day19}
+			</if>
+			<if test="day20 != null and day20 != ''">
+				AND day20 = #{day20}
+			</if>
+			<if test="day21 != null and day21 != ''">
+				AND day21 = #{day21}
+			</if>
+			<if test="day22 != null and day22 != ''">
+				AND day22 = #{day22}
+			</if>
+			<if test="day23 != null and day23 != ''">
+				AND day23 = #{day23}
+			</if>
+			<if test="day24 != null and day24 != ''">
+				AND day24 = #{day24}
+			</if>
+			<if test="day25 != null and day25 != ''">
+				AND day25 = #{day25}
+			</if>
+			<if test="day26 != null and day26 != ''">
+				AND day26 = #{day26}
+			</if>
+			<if test="day27 != null and day27 != ''">
+				AND day27 = #{day27}
+			</if>
+			<if test="day28 != null and day28 != ''">
+				AND day28 = #{day28}
+			</if>
+			<if test="day29 != null and day29 != ''">
+				AND day29 = #{day29}
+			</if>
+			<if test="day30 != null and day30 != ''">
+				AND day30 = #{day30}
+			</if>
+			<if test="day31 != null and day31 != ''">
+				AND day31 = #{day31}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND create_user = #{createUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND create_time = #{createTime}
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				AND modify_time = #{modifyTime}
+			</if>
+			<if test="modifyUser != null and modifyUser != ''">
+				AND modify_user = #{modifyUser}
+			</if>
+		</where>
+		ORDER BY modify_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 插入工时表信息 -->
+	<insert id="insert" parameterType="com.wxj.domain.entity.timesheet.Timesheets">
+		INSERT INTO timesheets
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="cstName != null and cstName != ''">
+				cst_name,
+			</if>
+			<if test="cstId != null and cstId != ''">
+				cst_id,
+			</if>
+			<if test="emName != null and emName != ''">
+				em_name,
+			</if>
+			<if test="emId != null and emId != ''">
+				em_id,
+			</if>
+			<if test="years != null and years != ''">
+				years,
+			</if>
+			<if test="months != null and months != ''">
+				months,
+			</if>
+			<if test="day01 != null and day01 != ''">
+				day01,
+			</if>
+			<if test="day02 != null and day02 != ''">
+				day02,
+			</if>
+			<if test="day03 != null and day03 != ''">
+				day03,
+			</if>
+			<if test="day04 != null and day04 != ''">
+				day04,
+			</if>
+			<if test="day05 != null and day05 != ''">
+				day05,
+			</if>
+			<if test="day06 != null and day06 != ''">
+				day06,
+			</if>
+			<if test="day07 != null and day07 != ''">
+				day07,
+			</if>
+			<if test="day08 != null and day08 != ''">
+				day08,
+			</if>
+			<if test="day09 != null and day09 != ''">
+				day09,
+			</if>
+			<if test="day10 != null and day10 != ''">
+				day10,
+			</if>
+			<if test="day11 != null and day11 != ''">
+				day11,
+			</if>
+			<if test="day12 != null and day12 != ''">
+				day12,
+			</if>
+			<if test="day13 != null and day13 != ''">
+				day13,
+			</if>
+			<if test="day14 != null and day14 != ''">
+				day14,
+			</if>
+			<if test="day15 != null and day15 != ''">
+				day15,
+			</if>
+			<if test="day16 != null and day16 != ''">
+				day16,
+			</if>
+			<if test="day17 != null and day17 != ''">
+				day17,
+			</if>
+			<if test="day18 != null and day18 != ''">
+				day18,
+			</if>
+			<if test="day19 != null and day19 != ''">
+				day19,
+			</if>
+			<if test="day20 != null and day20 != ''">
+				day20,
+			</if>
+			<if test="day21 != null and day21 != ''">
+				day21,
+			</if>
+			<if test="day22 != null and day22 != ''">
+				day22,
+			</if>
+			<if test="day23 != null and day23 != ''">
+				day23,
+			</if>
+			<if test="day24 != null and day24 != ''">
+				day24,
+			</if>
+			<if test="day25 != null and day25 != ''">
+				day25,
+			</if>
+			<if test="day26 != null and day26 != ''">
+				day26,
+			</if>
+			<if test="day27 != null and day27 != ''">
+				day27,
+			</if>
+			<if test="day28 != null and day28 != ''">
+				day28,
+			</if>
+			<if test="day29 != null and day29 != ''">
+				day29,
+			</if>
+			<if test="day30 != null and day30 != ''">
+				day30,
+			</if>
+			<if test="day31 != null and day31 != ''">
+				day31,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+				create_time,
+				modify_time,
+			<if test="modifyUser != null and modifyUser != ''">
+				modify_user,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="cstName != null and cstName != ''">
+				#{cstName},
+			</if>
+			<if test="cstId != null and cstId != ''">
+				#{cstId},
+			</if>
+			<if test="emName != null and emName != ''">
+				#{emName},
+			</if>
+			<if test="emId != null and emId != ''">
+				#{emId},
+			</if>
+			<if test="years != null and years != ''">
+				#{years},
+			</if>
+			<if test="months != null and months != ''">
+				#{months},
+			</if>
+			<if test="day01 != null and day01 != ''">
+				#{day01},
+			</if>
+			<if test="day02 != null and day02 != ''">
+				#{day02},
+			</if>
+			<if test="day03 != null and day03 != ''">
+				#{day03},
+			</if>
+			<if test="day04 != null and day04 != ''">
+				#{day04},
+			</if>
+			<if test="day05 != null and day05 != ''">
+				#{day05},
+			</if>
+			<if test="day06 != null and day06 != ''">
+				#{day06},
+			</if>
+			<if test="day07 != null and day07 != ''">
+				#{day07},
+			</if>
+			<if test="day08 != null and day08 != ''">
+				#{day08},
+			</if>
+			<if test="day09 != null and day09 != ''">
+				#{day09},
+			</if>
+			<if test="day10 != null and day10 != ''">
+				#{day10},
+			</if>
+			<if test="day11 != null and day11 != ''">
+				#{day11},
+			</if>
+			<if test="day12 != null and day12 != ''">
+				#{day12},
+			</if>
+			<if test="day13 != null and day13 != ''">
+				#{day13},
+			</if>
+			<if test="day14 != null and day14 != ''">
+				#{day14},
+			</if>
+			<if test="day15 != null and day15 != ''">
+				#{day15},
+			</if>
+			<if test="day16 != null and day16 != ''">
+				#{day16},
+			</if>
+			<if test="day17 != null and day17 != ''">
+				#{day17},
+			</if>
+			<if test="day18 != null and day18 != ''">
+				#{day18},
+			</if>
+			<if test="day19 != null and day19 != ''">
+				#{day19},
+			</if>
+			<if test="day20 != null and day20 != ''">
+				#{day20},
+			</if>
+			<if test="day21 != null and day21 != ''">
+				#{day21},
+			</if>
+			<if test="day22 != null and day22 != ''">
+				#{day22},
+			</if>
+			<if test="day23 != null and day23 != ''">
+				#{day23},
+			</if>
+			<if test="day24 != null and day24 != ''">
+				#{day24},
+			</if>
+			<if test="day25 != null and day25 != ''">
+				#{day25},
+			</if>
+			<if test="day26 != null and day26 != ''">
+				#{day26},
+			</if>
+			<if test="day27 != null and day27 != ''">
+				#{day27},
+			</if>
+			<if test="day28 != null and day28 != ''">
+				#{day28},
+			</if>
+			<if test="day29 != null and day29 != ''">
+				#{day29},
+			</if>
+			<if test="day30 != null and day30 != ''">
+				#{day30},
+			</if>
+			<if test="day31 != null and day31 != ''">
+				#{day31},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser},
+			</if>
+				SYSDATE(),
+				SYSDATE(),
+			<if test="modifyUser != null and modifyUser != ''">
+				#{modifyUser},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改工时表信息 -->
+	<update id="update" parameterType="com.wxj.domain.entity.timesheet.Timesheets">
+		update  timesheets
+		 <trim prefix="set" suffixOverrides=",">
+			<if test="cstName != null and cstName != ''">
+				cst_name = #{cstName},
+			</if>
+			<if test="cstId != null and cstId != ''">
+				cst_id = #{cstId},
+			</if>
+			<if test="emName != null and emName != ''">
+				em_name = #{emName},
+			</if>
+			<if test="emId != null and emId != ''">
+				em_id = #{emId},
+			</if>
+			<if test="years != null">
+				years = #{years},
+			</if>
+			<if test="months != null">
+				months = #{months},
+			</if>
+			<if test="day01 != null">
+				day01 = #{day01},
+			</if>
+			<if test="day02 != null">
+				day02 = #{day02},
+			</if>
+			<if test="day03 != null">
+				day03 = #{day03},
+			</if>
+			<if test="day04 != null">
+				day04 = #{day04},
+			</if>
+			<if test="day05 != null">
+				day05 = #{day05},
+			</if>
+			<if test="day06 != null">
+				day06 = #{day06},
+			</if>
+			<if test="day07 != null">
+				day07 = #{day07},
+			</if>
+			<if test="day08 != null">
+				day08 = #{day08},
+			</if>
+			<if test="day09 != null">
+				day09 = #{day09},
+			</if>
+			<if test="day10 != null">
+				day10 = #{day10},
+			</if>
+			<if test="day11 != null">
+				day11 = #{day11},
+			</if>
+			<if test="day12 != null">
+				day12 = #{day12},
+			</if>
+			<if test="day13 != null">
+				day13 = #{day13},
+			</if>
+			<if test="day14 != null">
+				day14 = #{day14},
+			</if>
+			<if test="day15 != null">
+				day15 = #{day15},
+			</if>
+			<if test="day16 != null">
+				day16 = #{day16},
+			</if>
+			<if test="day17 != null">
+				day17 = #{day17},
+			</if>
+			<if test="day18 != null">
+				day18 = #{day18},
+			</if>
+			<if test="day19 != null">
+				day19 = #{day19},
+			</if>
+			<if test="day20 != null">
+				day20 = #{day20},
+			</if>
+			<if test="day21 != null">
+				day21 = #{day21},
+			</if>
+			<if test="day22 != null">
+				day22 = #{day22},
+			</if>
+			<if test="day23 != null">
+				day23 = #{day23},
+			</if>
+			<if test="day24 != null">
+				day24 = #{day24},
+			</if>
+			<if test="day25 != null">
+				day25 = #{day25},
+			</if>
+			<if test="day26 != null">
+				day26 = #{day26},
+			</if>
+			<if test="day27 != null">
+				day27 = #{day27},
+			</if>
+			<if test="day28 != null">
+				day28 = #{day28},
+			</if>
+			<if test="day29 != null">
+				day29 = #{day29},
+			</if>
+			<if test="day30 != null">
+				day30 = #{day30},
+			</if>
+			<if test="day31 != null">
+				day31 = #{day31},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user = #{createUser},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				create_time = #{createTime},
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				modify_time = #{modifyTime},
+			</if>
+			<if test="modifyUser != null and modifyUser != ''">
+				modify_user = #{modifyUser},
+			</if>
+		</trim>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+	<!-- 删除工时表信息 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM  timesheets
+		<where>
+			 id = #{id}
+		</where>
+	</delete>
+	<!-- 查询单个工时表信息 -->
+	<select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT * FROM timesheets
+		<where>
+			id = #{id}
+		</where>
+	</select>
+</mapper>

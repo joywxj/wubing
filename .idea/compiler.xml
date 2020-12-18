@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="wubing-server" />
+        <module name="wubing-kernel-client" />
+        <module name="wubing-web-client" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="wubing" target="1.7" />
+      <module name="wubing-kernel-client" target="8" />
+      <module name="wubing-server" target="1.7" />
+      <module name="wubing-web-client" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

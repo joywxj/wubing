@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.SalaryRecordMapper" >
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.SalaryRecord">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="before_greade" property="beforeGreade" jdbcType="VARCHAR" />
+		<result column="after_greade" property="afterGreade" jdbcType="VARCHAR" />
+		<result column="em_id" property="emId" jdbcType="VARCHAR" />
+		<result column="change_desc" property="changeDesc" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="insertSalaryRecord" parameterType="com.wxj.domain.entity.SalaryRecord" >
+	INSERT INTO salary_record<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="beforeGreade != null and beforeGreade != ''">
+				before_greade,
+			</if>
+			<if test="afterGreade != null and afterGreade != ''">
+				after_greade,
+			</if>
+			<if test="emId != null and emId != ''">
+				em_id,
+			</if>
+			<if test="changeDesc != null and changeDesc != ''">
+				change_desc,
+			</if>
+				create_time,
+			<if test="reason != null and reason != ''">
+				reason,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="beforeGreade != null and beforeGreade != ''">
+				#{beforeGreade},
+			</if>
+			<if test="afterGreade != null and afterGreade != ''">
+				#{afterGreade},
+			</if>
+			<if test="emId != null and emId != ''">
+				#{emId},
+			</if>
+			<if test="changeDesc != null and changeDesc != ''">
+				#{changeDesc},
+			</if>
+			SYSDATE(),
+			<if test="reason != null and reason != ''">
+				#{reason},
+			</if>
+		</trim>
+	</insert>
+</mapper>

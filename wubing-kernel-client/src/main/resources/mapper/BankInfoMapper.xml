@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.BankInfoMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.bank.BankInfo">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+		<result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+		<result column="bank_deposit" property="bankDeposit" jdbcType="VARCHAR" />
+		<result column="sign" property="sign" jdbcType="VARCHAR" />
+		<result column="bank_address" property="bankAddress" jdbcType="VARCHAR" />
+		<result column="em_id" property="emId" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,bank_card,bank_name,bank_deposit,sign,bank_address,em_id,update_time,create_time
+	</sql>
+	<select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select  * from bank_info where id = #{id}
+	</select>
+	<select id="selectBankInfoByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+			a.id,
+	a.bank_card,
+	a.bank_name,
+	a.bank_deposit,
+	a.sign,
+	a.bank_address,
+	b.name em_id,
+	a.update_time,
+	a.create_time
+		from bank_info a left join employee b on a.em_id = b.id
+		<where>
+			<if test="id != null and id != ''">
+				and a.id = #{id}
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				and a.bank_card = #{bankCard}
+			</if>
+			<if test="bankName != null and bankName != ''">
+				and a.bank_name = #{bankName}
+			</if>
+			<if test="bankDeposit != null and bankDeposit != ''">
+				and a.bank_deposit = #{bankDeposit}
+			</if>
+			<if test="sign != null and sign != ''">
+				and a.sign = #{sign}
+			</if>
+			<if test="bankAddress != null and bankAddress != ''">
+				and a.bank_address = #{bankAddress}
+			</if>
+			<if test="emId != null and emId != ''">
+				and a.em_id = #{emId}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and a.update_time = #{updateTime}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and a.create_time = #{createTime}
+			</if>
+		</where>
+		ORDER BY a.update_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 修改银行信息 -->
+	<update id="updateBankInfo" parameterType="com.wxj.domain.entity.bank.BankInfo">
+		UPDATE bank_info
+		<set>
+			<trim suffixOverrides=",">
+				<if test="bankCard != null and bankCard != ''">
+					bank_card = #{bankCard},
+				</if>
+				<if test="bankName != null and bankName != ''">
+					bank_name = #{bankName},
+				</if>
+				<if test="bankDeposit != null and bankDeposit != ''">
+					bank_deposit = #{bankDeposit},
+				</if>
+				<if test="sign != null and sign != ''">
+					sign = #{sign},
+				</if>
+				<if test="bankAddress != null and bankAddress != ''">
+					bank_address = #{bankAddress},
+				</if>
+				<if test="emId != null and emId != ''">
+					em_id = #{emId},
+				</if>
+				<if test="updateTime != null and updateTime != ''">
+					update_time = #{updateTime},
+				</if>
+				<if test="createTime != null and createTime != ''">
+					create_time = #{createTime},
+				</if>
+			</trim>
+		</set>
+		<where>
+			1=1
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+		</where>
+	</update>
+	<select id="selectBankInfo" resultMap="BaseResultMap"
+		parameterType="com.wxj.domain.entity.bank.BankInfo">
+		select
+		<include refid="BaseColumnList" />
+		from bank_info
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				and bank_card = #{bankCard}
+			</if>
+			<if test="bankName != null and bankName != ''">
+				and bank_name = #{bankName}
+			</if>
+			<if test="bankDeposit != null and bankDeposit != ''">
+				and bank_deposit = #{bankDeposit}
+			</if>
+			<if test="sign != null and sign != ''">
+				and sign = #{sign}
+			</if>
+			<if test="bankAddress != null and bankAddress != ''">
+				and bank_address = #{bankAddress}
+			</if>
+			<if test="emId != null and emId != ''">
+				and em_id = #{emId}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time = #{updateTime}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+		</where>
+	</select>
+	<insert id="insertBankInfo" parameterType="com.wxj.domain.entity.bank.BankInfo">
+		insert into bank_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				bank_card,
+			</if>
+			<if test="bankName != null and bankName != ''">
+				bank_name,
+			</if>
+			<if test="bankDeposit != null and bankDeposit != ''">
+				bank_deposit,
+			</if>
+			<if test="sign != null and sign != ''">
+				sign,
+			</if>
+			<if test="bankAddress != null and bankAddress != ''">
+				bank_address,
+			</if>
+			<if test="emId != null and emId != ''">
+				em_id,
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				update_time,
+			</if>
+			<if test="createTime != null and createTime != ''">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				#{bankCard},
+			</if>
+			<if test="bankName != null and bankName != ''">
+				#{bankName},
+			</if>
+			<if test="bankDeposit != null and bankDeposit != ''">
+				#{bankDeposit},
+			</if>
+			<if test="sign != null and sign != ''">
+				#{sign},
+			</if>
+			<if test="bankAddress != null and bankAddress != ''">
+				#{bankAddress},
+			</if>
+			<if test="emId != null and emId != ''">
+				#{emId},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				#{updateTime},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				#{createTime},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteBankInfo" parameterType="com.wxj.domain.entity.bank.BankInfo">
+		delete from bank_info
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				and bank_card = #{bankCard}
+			</if>
+			<if test="bankName != null and bankName != ''">
+				and bank_name = #{bankName}
+			</if>
+			<if test="bankDeposit != null and bankDeposit != ''">
+				and bank_deposit = #{bankDeposit}
+			</if>
+			<if test="sign != null and sign != ''">
+				and sign = #{sign}
+			</if>
+			<if test="bankAddress != null and bankAddress != ''">
+				and bank_address = #{bankAddress}
+			</if>
+			<if test="emId != null and emId != ''">
+				and em_id = #{emId}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time = #{updateTime}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+		</where>
+	</delete>
+</mapper>

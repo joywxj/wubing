@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.EmployeeMapper" >
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.Employee">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="salary_grade" property="salaryGrade" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+		<result column="home_address" property="homeAddress" jdbcType="VARCHAR" />
+		<result column="comm_address" property="commAddress" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="identity" property="identity" jdbcType="VARCHAR" />
+		<result column="work_id" property="workId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,work_id,status,name,age,phone,user_name,password,identity,salary_grade,create_time,update_time,comm_address,home_address
+	</sql>
+	<update id="updateEmpoyeeByAreaId" parameterType="com.wxj.domain.entity.Employee">
+		update employee SET work_id = null WHERE work_id = #{workId}
+	</update>
+	<!-- 修改员工信息 wxj -->
+	<update id="updateEmployee" parameterType="com.wxj.domain.entity.Employee" >
+		UPDATE employee SET 
+			<trim suffixOverrides=",">
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="workId != null and workId != ''">
+				work_id = #{workId},
+			</if>
+			<if test="age != null and age != ''">
+				age = #{age},
+			</if>
+			<if test="phone != null and phone != ''">
+				phone = #{phone},
+			</if>
+			<if test="userName != null and userName != ''">
+				user_name = #{userName},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				salary_grade = #{salaryGrade},
+			</if>
+			<if test="commAddress != null and commAddress != ''">
+				comm_address = #{commAddress},
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				home_address = #{homeAddress},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+			<if test="workId != null and workId != ''">
+				work_id = #{workId},
+			</if>
+		</trim>
+			<where>
+				1=1
+				<if test="id != null and id != ''">
+					and id = #{id}
+				</if>
+			</where> 
+	</update>
+	<!-- 查询最大的员工 id -->
+	<select id ="selectMaxEmId" resultType="Integer" >
+		SELECT MAX(ID) FROM employee
+	</select>
+	<select id="selectEmployeeByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select a.id,a.work_id workId,a.identity,CASE a.status WHEN 1 THEN '在职' WHEN 0 THEN '离职' END status,a.name,a.age,a.phone,a.user_name,a.password,a.create_time,a.update_time,a.comm_address,a.home_address from employee a
+		<where>
+			<if test="id != null and id != ''">
+				and a.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and a.name  like CONCAT('%',#{name},'%')
+			</if>
+			<if test="age != null and age != ''">
+				and a.age = #{age}
+			</if>
+			<if test="phone != null and phone != ''">
+				and a.phone = #{phone}
+			</if>
+			<if test="userName != null and userName != ''">
+				and a.user_name = #{userName}
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				and a.salary_grade = #{salaryGrade}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and a.create_time = #{createTime}
+			</if>
+			<if test="status != null and status != ''">
+				and a.status = #{status}
+			</if>
+			<if test="workId != null and workId != ''">
+				and a.work_id = #{workId}
+			</if>
+			<if test="identity != null and identity != ''">
+				and a.identity = #{identity}
+			</if>
+			<if test="commAddress != null and commAddress != ''">
+				and a.comm_address like CONCAT('%',#{commAddress},'%')
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				and a.home_address like CONCAT('%',#{homeAddress},'%')
+			</if>
+		</where>
+		
+		ORDER BY a.update_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 查询总条数 -->
+	<select id="selectEmployeeCount" resultType="Integer" parameterType="java.util.Map">
+		select COUNT(id) from employee a
+			<where>
+			<if test="id != null and id != ''">
+				and a.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and a.name  like CONCAT('%',#{name},'%')
+			</if>
+			<if test="age != null and age != ''">
+				and a.age = #{age}
+			</if>
+			<if test="phone != null and phone != ''">
+				and a.phone = #{phone}
+			</if>
+			<if test="userName != null and userName != ''">
+				and a.user_name = #{userName}
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				and a.salary_grade = #{salaryGrade}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and a.create_time = #{createTime}
+			</if>
+			<if test="status != null and status != ''">
+				and a.status = #{status}
+			</if>
+			<if test="identity != null and identity != ''">
+				and a.identity = #{identity}
+			</if>
+			<if test="commAddress != null and commAddress != ''">
+				and a.comm_address like CONCAT('%',#{commAddress},'%')
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				and a.home_address like CONCAT('%',#{homeAddress},'%')
+			</if>
+		</where>
+	</select>
+	<select id="selectEmployee" resultMap="BaseResultMap"  parameterType="com.wxj.domain.entity.Employee" >
+		select <include refid="BaseColumnList" /> from employee
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="age != null and age != ''">
+				and age = #{age}
+			</if>
+			<if test="phone != null and phone != ''">
+				and phone = #{phone}
+			</if>
+			<if test="workId != null and workId != ''">
+				and work_id = #{workId}
+			</if>
+			<if test="userName != null and userName != ''">
+				and user_name = #{userName}
+			</if>
+			<if test="password != null and password != ''">
+				and password = #{password}
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				and salary_grade = #{salaryGrade}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				and update_time = #{updateTime}
+			</if>
+			<if test="status != null and status != ''">
+				and status = #{status}
+			</if>
+			<if test="identity != null and identity != ''">
+				and identity = #{identity}
+			</if>
+		</where>
+	</select>
+	<insert id="insertEmployee"  parameterType="com.wxj.domain.entity.Employee" >
+		insert into employee
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="workId != null and workId != ''">
+				work_id,
+			</if>
+			<if test="name != null and name != ''">
+				name,
+			</if>
+			<if test="age != null and age != ''">
+				age,
+			</if>
+			<if test="phone != null and phone != ''">
+				phone,
+			</if>
+			<if test="userName != null and userName != ''">
+				user_name,
+			</if>
+			<if test="password != null and password != ''">
+				password,
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				salary_grade,
+			</if>
+				create_time,
+				update_time,
+			<if test="commAddress != null and commAddress != ''">
+				comm_address,
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				home_address,
+			</if>
+			<if test="status != null and status != ''">
+				status,
+			</if>
+			<if test="identity != null and identity != ''">
+				identity,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="workId != null and workId != ''">
+				#{workId},
+			</if>
+			<if test="name != null and name != ''">
+				#{name},
+			</if>
+			<if test="age != null and age != ''">
+				#{age},
+			</if>
+			<if test="phone != null and phone != ''">
+				#{phone},
+			</if>
+			<if test="userName != null and userName != ''">
+				#{userName},
+			</if>
+			<if test="password != null and password != ''">
+				#{password},
+			</if>
+			<if test="salaryGrade != null and salaryGrade != ''">
+				#{salaryGrade},
+			</if>
+				SYSDATE(),
+				SYSDATE(),
+			<if test="commAddress != null and commAddress != ''">
+				#{commAddress},
+			</if>
+			<if test="homeAddress != null and homeAddress != ''">
+				#{homeAddress},
+			</if>
+			<if test="status != null and status != ''">
+				#{status},
+			</if>
+			<if test="identity != null and identity != ''">
+				#{identity},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteEmployee" parameterType="com.wxj.domain.entity.Employee" >
+		delete from employee
+		<where>
+			<if test="id != null and id != ''">
+				id = #{id}
+			</if>
+		</where>
+	</delete>
+</mapper>

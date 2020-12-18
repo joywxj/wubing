@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.AdvanceMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.advance.Advance">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="em_id" property="emId" jdbcType="BIGINT" />
+		<result column="money" property="money" jdbcType="DECIMAL" />
+		<result column="audit_message" property="auditMessage" jdbcType="VARCHAR" />
+		<result column="audit_tag" property="auditTag" jdbcType="VARCHAR" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,em_id,money,audit_message,audit_tag,create_user,create_time,modify_user,modify_time
+	</sql>
+	<!-- 查询员工预支表信息 -->
+	<select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT * FROM advance
+		<where>
+			1 = 1
+			<if test="id != null and id != ''">
+				AND id = #{id}
+			</if>
+			<if test="emId != null and emId != ''">
+				AND em_id = #{emId}
+			</if>
+			<if test="money != null and money != ''">
+				AND money = #{money}
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				AND audit_message = #{auditMessage}
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				AND audit_tag = #{auditTag}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND create_user = #{createUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND create_time = #{createTime}
+			</if>
+			<if test="modifyUser != null and modifyUser != ''">
+				AND modify_user = #{modifyUser}
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				AND modify_time = #{modifyTime}
+			</if>
+		</where>
+		ORDER BY modify_time DESC
+		<if test="begin != null  and pageSize != null">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 插入员工预支表信息 -->
+	<insert id="insert" parameterType="com.wxj.domain.entity.advance.Advance">
+		INSERT INTO advance
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="emId != null and emId != ''">
+				em_id,
+			</if>
+			<if test="money != null and money != ''">
+				money,
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				audit_message,
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				audit_tag,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+			create_time,
+			<if test="modifyUser != null and modifyUser != ''">
+				modify_user,
+			</if>
+			modify_time,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="emId != null and emId != ''">
+				#{emId},
+			</if>
+			<if test="money != null and money != ''">
+				#{money},
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				#{auditMessage},
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				#{auditTag},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser},
+			</if>
+			SYSDATE(),
+			<if test="modifyUser != null and modifyUser != ''">
+				#{modifyUser},
+			</if>
+			SYSDATE(),
+		</trim>
+	</insert>
+	<!-- 修改员工预支表信息 -->
+	<update id="update" parameterType="com.wxj.domain.entity.advance.Advance">
+		update  advance
+		<trim prefix="set" suffixOverrides=",">
+
+
+			<if test="id != null and id != ''">
+				id = #{id},
+			</if>
+			<if test="emId != null and emId != ''">
+				em_id = #{emId},
+			</if>
+			<if test="money != null and money != ''">
+				money = #{money},
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				audit_message = #{auditMessage},
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				audit_tag = #{auditTag},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user = #{createUser},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				create_time = #{createTime},
+			</if>
+			<if test="modifyUser != null and modifyUser != ''">
+				modify_user = #{modifyUser},
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				modify_time = #{modifyTime},
+			</if>
+		</trim>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	<!-- 删除员工预支表信息 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM  advance
+		<where>
+			id = #{id}
+		</where>
+	</delete>
+	<!-- 查询单个员工预支表信息 -->
+	<select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT * FROM advance
+		<where>
+			id = #{id}
+		</where>
+	</select>
+</mapper>

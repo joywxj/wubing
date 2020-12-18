@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.WorkloadMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.workload.Workload">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="con_id" property="conId" jdbcType="BIGINT" />
+		<result column="length" property="length" jdbcType="DOUBLE" />
+		<result column="width" property="width" jdbcType="DOUBLE" />
+		<result column="height" property="height" jdbcType="DOUBLE" />
+		<result column="area" property="area" jdbcType="DOUBLE" />
+		<result column="volume" property="volume" jdbcType="DOUBLE" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="total" property="total" jdbcType="DOUBLE" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,con_id,length,width,height,area,volume,price,total,create_user,create_time,modify_user,modify_time,
+	</sql>
+	<!-- 查询工作量表信息 -->
+	<select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT * FROM workload
+		<where>
+			 1 = 1
+			<if test="id != null and id != ''">
+				AND id = #{id}
+			</if>
+			<if test="conId != null and conId != ''">
+				AND con_id = #{conId}
+			</if>
+			<if test="length != null and length != ''">
+				AND length = #{length}
+			</if>
+			<if test="width != null and width != ''">
+				AND width = #{width}
+			</if>
+			<if test="height != null and height != ''">
+				AND height = #{height}
+			</if>
+			<if test="area != null and area != ''">
+				AND area = #{area}
+			</if>
+			<if test="volume != null and volume != ''">
+				AND volume = #{volume}
+			</if>
+			<if test="price != null and price != ''">
+				AND price = #{price}
+			</if>
+			<if test="total != null and total != ''">
+				AND total = #{total}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND create_user = #{createUser}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND create_time = #{createTime}
+			</if>
+			<if test="modifyUser != null and modifyUser != ''">
+				AND modify_user = #{modifyUser}
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				AND modify_time = #{modifyTime}
+			</if>
+		</where>
+		ORDER BY modify_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 插入工作量表信息 -->
+	<insert id="insert" parameterType="com.wxj.domain.entity.workload.Workload">
+		INSERT INTO workload
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="conId != null and conId != ''">
+				con_id,
+			</if>
+			<if test="length != null and length != ''">
+				length,
+			</if>
+			<if test="width != null and width != ''">
+				width,
+			</if>
+			<if test="height != null and height != ''">
+				height,
+			</if>
+			<if test="area != null and area != ''">
+				area,
+			</if>
+			<if test="volume != null and volume != ''">
+				volume,
+			</if>
+			<if test="price != null and price != ''">
+				price,
+			</if>
+			<if test="total != null and total != ''">
+				total,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+				create_time,
+			<if test="modifyUser != null and modifyUser != ''">
+				modify_user,
+			</if>
+				modify_time,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="conId != null and conId != ''">
+				#{conId},
+			</if>
+			<if test="length != null and length != ''">
+				#{length},
+			</if>
+			<if test="width != null and width != ''">
+				#{width},
+			</if>
+			<if test="height != null and height != ''">
+				#{height},
+			</if>
+			<if test="area != null and area != ''">
+				#{area},
+			</if>
+			<if test="volume != null and volume != ''">
+				#{volume},
+			</if>
+			<if test="price != null and price != ''">
+				#{price},
+			</if>
+			<if test="total != null and total != ''">
+				#{total},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser},
+			</if>
+				SYSDATE(),
+			<if test="modifyUser != null and modifyUser != ''">
+				#{modifyUser},
+			</if>
+				SYSDATE(),
+		</trim>
+	</insert>
+	<!-- 修改工作量表信息 -->
+	<update id="update" parameterType="com.wxj.domain.entity.workload.Workload">
+		update  workload
+		 <trim prefix="set" suffixOverrides=",">
+
+			
+			<if test="id != null and id != ''">
+				id = #{id},
+			</if>
+			<if test="conId != null and conId != ''">
+				con_id = #{conId},
+			</if>
+			<if test="length != null and length != ''">
+				length = #{length},
+			</if>
+			<if test="width != null and width != ''">
+				width = #{width},
+			</if>
+			<if test="height != null and height != ''">
+				height = #{height},
+			</if>
+			<if test="area != null and area != ''">
+				area = #{area},
+			</if>
+			<if test="volume != null and volume != ''">
+				volume = #{volume},
+			</if>
+			<if test="price != null and price != ''">
+				price = #{price},
+			</if>
+			<if test="total != null and total != ''">
+				total = #{total},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user = #{createUser},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				create_time = #{createTime},
+			</if>
+			<if test="modifyUser != null and modifyUser != ''">
+				modify_user = #{modifyUser},
+			</if>
+			<if test="modifyTime != null and modifyTime != ''">
+				modify_time = #{modifyTime},
+			</if>
+		</trim>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+	<!-- 删除工作量表信息 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM  workload
+		<where>
+			 id = #{id}
+		</where>
+	</delete>
+	<!-- 查询单个工作量表信息 -->
+	<select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT * FROM workload
+		<where>
+			id = #{id}
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/wubing.iml" filepath="$PROJECT_DIR$/wubing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wubing-kernel-client/wubing-kernel-client.iml" filepath="$PROJECT_DIR$/wubing-kernel-client/wubing-kernel-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wubing-server/wubing-server.iml" filepath="$PROJECT_DIR$/wubing-server/wubing-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wubing-web-client/wubing-web-client.iml" filepath="$PROJECT_DIR$/wubing-web-client/wubing-web-client.iml" />
+    </modules>
+  </component>
+</project>
