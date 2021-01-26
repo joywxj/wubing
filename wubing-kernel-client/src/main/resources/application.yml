@@ -18,6 +18,18 @@ spring:
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
+
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    user: admin
+    password: admin
+    open: true
+
+  pool:
+    enabled: true
+    max-connections: 10   #连接池最大连接数
+    idle-timeout: 30000   #空闲的连接过期时间，默认为30秒
+
 mybatis:
   typeAliasesPackage: com.wxj.entity
   mapperLocations: classpath:mapper/*.xml

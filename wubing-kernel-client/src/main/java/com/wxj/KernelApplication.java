@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.jms.annotation.EnableJms;
 
 /**  
 * <p>@ClassName: KernelApplication  <p>
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableEurekaClient
 @MapperScan("com.wxj.dao")
 @EnableFeignClients
+@EnableJms
 @ComponentScan(basePackages = {"com.wxj.controller", "com.wxj.service", "com.wxj.dao", "com.wxj.util", "com.wxj.config"})
 public class KernelApplication {
 	public static void main(String[] args) {
