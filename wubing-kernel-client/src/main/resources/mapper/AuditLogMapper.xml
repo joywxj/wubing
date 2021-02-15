@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxj.dao.AuditLogMapper">
+	<resultMap id="BaseResultMap" type="com.wxj.domain.entity.audit.AuditLog">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="audit_tag" property="auditTag" jdbcType="VARCHAR" />
+		<result column="audit_message" property="auditMessage" jdbcType="VARCHAR" />
+		<result column="audit_dict" property="auditDict" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="BaseColumnList">
+		id,audit_tag,audit_message,audit_dict,create_time,create_user,
+	</sql>
+	<!-- 查询审核记录表信息 -->
+	<select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT * FROM audit_log
+		<where>
+			 1 = 1
+			<if test="id != null and id != ''">
+				AND id = #{id}
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				AND audit_tag = #{auditTag}
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				AND audit_message = #{auditMessage}
+			</if>
+			<if test="auditDict != null and auditDict != ''">
+				AND audit_dict = #{auditDict}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND create_time = #{createTime}
+			</if>
+			<if test="createUser != null and createUser != ''">
+				AND create_user = #{createUser}
+			</if>
+		</where>
+		ORDER BY modify_time DESC
+		<if test="begin != null and begin != '' and pageSize != null and pageSize != ''">
+			limit ${begin},${pageSize}
+		</if>
+	</select>
+	<!-- 插入审核记录表信息 -->
+	<insert id="insert" parameterType="com.wxj.domain.entity.audit.AuditLog">
+		INSERT INTO audit_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				audit_tag,
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				audit_message,
+			</if>
+			<if test="auditDict != null and auditDict != ''">
+				audit_dict,
+			</if>
+				create_time,
+			<if test="createUser != null and createUser != ''">
+				create_user,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				#{auditTag},
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				#{auditMessage},
+			</if>
+			<if test="auditDict != null and auditDict != ''">
+				#{auditDict},
+			</if>
+				SYSDATE(),
+			<if test="createUser != null and createUser != ''">
+				#{createUser},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改审核记录表信息 -->
+	<update id="update" parameterType="com.wxj.domain.entity.audit.AuditLog">
+		update  audit_log
+		 <trim prefix="set" suffixOverrides=",">
+
+			
+			<if test="id != null and id != ''">
+				id = #{id},
+			</if>
+			<if test="auditTag != null and auditTag != ''">
+				audit_tag = #{auditTag},
+			</if>
+			<if test="auditMessage != null and auditMessage != ''">
+				audit_message = #{auditMessage},
+			</if>
+			<if test="auditDict != null and auditDict != ''">
+				audit_dict = #{auditDict},
+			</if>
+			<if test="createTime != null and createTime != ''">
+				create_time = #{createTime},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				create_user = #{createUser},
+			</if>
+		</trim>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+	<!-- 删除审核记录表信息 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM  audit_log
+		<where>
+			 id = #{id}
+		</where>
+	</delete>
+	<!-- 查询单个审核记录表信息 -->
+	<select id="get" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM audit_log
+		<where>
+			id = #{id}
+		</where>
+	</select>
+</mapper>

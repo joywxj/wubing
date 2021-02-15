@@ -43,7 +43,7 @@ public class EmployeeConditionDto {
     /** 工地id */
     private String workId;
     @ApiModelProperty("当前页")
-    private Integer page;
+    private Integer page = 1;
     @ApiModelProperty("当前页面大小")
-    private Integer size;
+    private Integer size = 10;
 }

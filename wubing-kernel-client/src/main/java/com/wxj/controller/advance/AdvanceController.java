@@ -28,15 +28,23 @@ public class AdvanceController {
     @ApiOperation(value = "/query", tags = "查询员工预支表列表(分页)")
     @RequestMapping(value = "/query", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultObject query( AdvanceConditionDto conditionDto) {
-        PageUtils<AdvanceVO> page = service.query(conditionDto);
+        PageUtils<Advance> page = service.query(conditionDto);
         ResultObject result = new ResultObject(page);
         return result;
     }
 
     @ApiOperation(value = "/modify", tags = "更新员工预支表信息")
     @RequestMapping(value = "/modify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultObject modify(AdvanceModifyDto modifyDto) {
+    public ResultObject modify(Advance modifyDto) {
         service.modify(modifyDto);
+        ResultObject result = new ResultObject(1);
+        return result;
+    }
+
+    @ApiOperation(value = "/audit", tags = "审核员工预支")
+    @RequestMapping(value = "/audit", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultObject audit(Advance modifyDto) {
+        service.audit(modifyDto);
         ResultObject result = new ResultObject(1);
         return result;
     }
@@ -51,7 +59,7 @@ public class AdvanceController {
 
     @ApiOperation(value = "/add", tags = "新增员工预支表信息")
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultObject add(AdvanceAddDto addDto) {
+    public ResultObject add(Advance addDto) {
         service.add(addDto);
         ResultObject result = new ResultObject(1);
         return result;
@@ -60,7 +68,7 @@ public class AdvanceController {
     @ApiOperation(value = "/get", tags = "根据id查询员工预支表信息")
     @RequestMapping(value = "/get", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultObject get(String id) {
-        AdvanceVO bean = service.get(id);
+        Advance bean = service.get(id);
         ResultObject result = new ResultObject(bean);
         return result;
     }

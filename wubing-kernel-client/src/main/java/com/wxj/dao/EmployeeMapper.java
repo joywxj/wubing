@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.wxj.domain.entity.Employee;
 import com.wxj.domain.vo.employee.EmployeeVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -72,4 +73,11 @@ public interface EmployeeMapper{
 	* @date:2019-03-11 09:40
 	*/
 	public int updateEmpoyeeByAreaId(Employee employee);
+
+	/**
+	 * 根据主键查询员工信息
+	 * @param id
+	 * @return
+	 */
+	Employee selectEmployeeById(@Param("id") Integer id);
 }

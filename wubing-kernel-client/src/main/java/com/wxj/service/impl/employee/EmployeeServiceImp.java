@@ -87,7 +87,7 @@ public class EmployeeServiceImp implements EmployeeService {
 		employeeMapper.insertEmployee(employee);
 		Integer maxEmId = employeeMapper.selectMaxEmId();
 		SalaryRecord record = new SalaryRecord();
-		record.setEmId(maxEmId.toString());
+		record.setEmId(maxEmId);
 		record.setBeforeGreade("0");
 		record.setAfterGreade(employee.getSalaryGrade());
 		record.setChangeDesc("入职");
@@ -205,14 +205,14 @@ public class EmployeeServiceImp implements EmployeeService {
 	@Override
 	public Employee queryById(String id) {
 		Employee employee = new Employee();
-		employee.setId(id);
+		employee.setId(Integer.parseInt(id));
 		return employeeMapper.selectEmployee(employee).get(0);
 	}
 
 	@Override
 	public int remove(String id) {
 		Employee employee = new Employee();
-		employee.setId(id);
+		employee.setId(Integer.parseInt(id));
 		// 删除之前的记录涨薪记录
 		return employeeMapper.deleteEmployee(employee);
 	}

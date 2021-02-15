@@ -8,14 +8,19 @@ import com.wxj.domain.vo.advance.AdvanceVO;
 import com.wxj.util.PageUtils;
 
 public interface IAdvanceService {
-    public PageUtils<AdvanceVO> query(AdvanceConditionDto conditionDto) ;
+    public PageUtils<Advance> query(AdvanceConditionDto conditionDto) ;
 
-    public Boolean modify(AdvanceModifyDto modifyDto) ;
+    public Boolean modify(Advance modifyDto) ;
 
-    public Boolean add(AdvanceAddDto addDto) ;
+    public Boolean add(Advance addDto) ;
 
     public Boolean remove(String id) ;
 
-    public AdvanceVO get(String id) ;
+    public Advance get(String id) ;
 
+    /**
+     * 审核
+     * @param modifyDto
+     */
+	void audit(Advance modifyDto);
 }

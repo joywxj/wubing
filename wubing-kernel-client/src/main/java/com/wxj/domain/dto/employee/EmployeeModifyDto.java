@@ -15,7 +15,7 @@ import lombok.Data;
 @ApiModel("员工修改DTO")
 public class EmployeeModifyDto {
     @ApiModelProperty(value="主键")
-    private String id;
+    private Integer id;
     @ApiModelProperty("姓名")
     private String name;
     @ApiModelProperty("年龄")

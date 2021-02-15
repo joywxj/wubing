@@ -20,6 +20,10 @@
 	<sql id="BaseColumnList">
 		id,work_id,status,name,age,phone,user_name,password,identity,salary_grade,create_time,update_time,comm_address,home_address
 	</sql>
+<!--	根据主键查询员工信息 -->
+	<select id="selectEmployeeById" resultMap="BaseResultMap">
+		SELECT * FROM employee WHERE ID = #{id}
+	</select>
 	<update id="updateEmpoyeeByAreaId" parameterType="com.wxj.domain.entity.Employee">
 		update employee SET work_id = null WHERE work_id = #{workId}
 	</update>

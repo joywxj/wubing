@@ -6,6 +6,7 @@
 		<result column="em_id" property="emId" jdbcType="BIGINT" />
 		<result column="money" property="money" jdbcType="DECIMAL" />
 		<result column="audit_message" property="auditMessage" jdbcType="VARCHAR" />
+		<result column="explain" property="explain" jdbcType="VARCHAR" />
 		<result column="audit_tag" property="auditTag" jdbcType="VARCHAR" />
 		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -13,7 +14,7 @@
 		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="BaseColumnList">
-		id,em_id,money,audit_message,audit_tag,create_user,create_time,modify_user,modify_time
+		id,em_id,money,audit_message,explain,audit_tag,create_user,create_time,modify_user,modify_time
 	</sql>
 	<!-- 查询员工预支表信息 -->
 	<select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
@@ -25,6 +26,9 @@
 			</if>
 			<if test="emId != null and emId != ''">
 				AND em_id = #{emId}
+			</if>
+			<if test="explain != null and explain != ''">
+				AND explain = #{explain}
 			</if>
 			<if test="money != null and money != ''">
 				AND money = #{money}
@@ -78,6 +82,8 @@
 			create_time,
 			<if test="modifyUser != null and modifyUser != ''">
 				modify_user,
+			</if><if test="explain != null and explain != ''">
+			explain,
 			</if>
 			modify_time,
 		</trim>
@@ -103,6 +109,8 @@
 			SYSDATE(),
 			<if test="modifyUser != null and modifyUser != ''">
 				#{modifyUser},
+			</if><if test="explain != null and explain != ''">
+				#{explain},
 			</if>
 			SYSDATE(),
 		</trim>
@@ -139,6 +147,8 @@
 			</if>
 			<if test="modifyTime != null and modifyTime != ''">
 				modify_time = #{modifyTime},
+			</if><if test="explain != null and explain != ''">
+			explain = #{explain},
 			</if>
 		</trim>
 		<where>

@@ -17,7 +17,7 @@ import java.util.Date;
 @ApiModel("员工实体类")
 public class Employee {
 	/***/
-	private String id;
+	private Integer id;
 	/**姓名*/
 	private String name;
 	/**年龄*/

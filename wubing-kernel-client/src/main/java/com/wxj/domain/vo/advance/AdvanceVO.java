@@ -24,6 +24,9 @@ public class AdvanceVO {
     @ApiModelProperty("员工id")
     private Integer emId;
 
+    @ApiModelProperty("员工id")
+    private String emName;
+
     @ApiModelProperty("借支金额")
     private BigDecimal money;
 
