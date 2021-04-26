@@ -2,3 +2,6 @@
 /wubing-kernel-client/target/
 /wubing-server/target/
 /wubing-web-client/target/
+
+# files
+*.iml
