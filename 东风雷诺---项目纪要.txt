@@ -1,0 +1,47 @@
+文档：https://192.168.2.150/svn/DFLT
+代码：https://192.168.2.150/svn/DFLT_CODE
+
+SVN:
+	wuxingjun
+	123456
+	
+WIFI:DFH-GUEST
+密码：$L2R&Fd4!
+
+
+.5   日志路径: /usr/local/tomcat/scmedi
+
+
+
+https://vpn.dongfeng-renault.com.cn
+
+VPN账号 VPN密码
+SC001 U6UZM8jH
+SC002 7ZDsJcfa
+SC003 7phNcce8
+SC004 !6Vnn#Fw
+SC005 abc123!!
+
+堡垒机:
+https://10.223.0.195
+h-scm
+123456@scm
+abc123!!05
+
+drac88!!
+
+
+## 服务器密码
+admin    Dfh@0329!!
+root     Voyah2021@!#
+
+堡垒机密码
+chenhao 123abc!!
+
+http://10.187.10.2:8668/materiel/SystemController/getMaterielBaseInfo
+
+/home/admin/java/app
+
+取货管理
+
+Voyah41#
